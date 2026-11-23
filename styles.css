@@ -1,0 +1,183 @@
+:root {
+  color-scheme: dark;
+  font-family: Inter, "Segoe UI", system-ui, sans-serif;
+  background: #090a0f;
+  color: #f7f4ff;
+}
+
+* { box-sizing: border-box; }
+
+html, body, #app {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+.screen {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  isolation: isolate;
+  background:
+    radial-gradient(circle at 73% 22%, rgba(114, 74, 170, .18), transparent 22rem),
+    linear-gradient(135deg, #090a0f 0%, #11131d 100%);
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(.985);
+  transition: opacity .35s ease, transform .35s ease, visibility .35s;
+}
+
+.screen.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+}
+
+.glow {
+  position: absolute;
+  z-index: -1;
+  width: 30rem;
+  height: 30rem;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: .14;
+}
+
+.glow-a { background: #a78bfa; right: -10rem; top: -12rem; }
+.glow-b { background: #38bdf8; left: -15rem; bottom: -18rem; }
+
+.content { text-align: center; width: min(42rem, calc(100% - 3rem)); }
+.eyebrow {
+  margin: 0 0 1.2rem;
+  color: #aaa4bc;
+  font-size: .72rem;
+  letter-spacing: .34em;
+  font-weight: 700;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(3.2rem, 10vw, 7.5rem);
+  line-height: .92;
+  letter-spacing: -.07em;
+  font-weight: 650;
+}
+
+h1 span {
+  background: linear-gradient(100deg, #fff 10%, #b99af3 78%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.clock {
+  margin: 2rem 0;
+  color: #878391;
+  font-size: 1rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.shortcut {
+  display: inline-flex;
+  align-items: center;
+  gap: .7rem;
+  padding: .38rem .38rem .38rem .9rem;
+  border: 1px solid rgba(255, 255, 255, .09);
+  border-radius: 999px;
+  color: #aaa5b5;
+  background: rgba(255, 255, 255, .025);
+  font-size: .78rem;
+}
+
+.shortcut button {
+  border: 0;
+  border-radius: 999px;
+  padding: .55rem .78rem;
+  background: rgba(255, 255, 255, .09);
+  color: #fff;
+  cursor: pointer;
+}
+
+.hide-button {
+  position: fixed;
+  right: 1.5rem;
+  top: 1.5rem;
+  width: 2.6rem;
+  height: 2.6rem;
+  border: 1px solid rgba(255, 255, 255, .08);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .04);
+  color: #777280;
+  cursor: pointer;
+  transition: color .2s, background .2s;
+}
+
+.hide-button:hover { color: #fff; background: rgba(255, 255, 255, .09); }
+
+.mode-button {
+  position: fixed;
+  left: 1.5rem;
+  bottom: 1.5rem;
+  width: 3rem;
+  height: 3rem;
+  display: grid;
+  place-content: center;
+  gap: 3px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+}
+
+.mode-button span { width: 3px; height: 3px; border-radius: 50%; background: #777280; }
+
+.decoy {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(150deg, #24314a, #7d8aa2 58%, #b1af9f);
+  opacity: 1;
+}
+
+.desktop-glass {
+  width: min(26rem, calc(100% - 3rem));
+  height: 7rem;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, .2);
+  border-radius: 1.2rem;
+  background: rgba(255, 255, 255, .13);
+  backdrop-filter: blur(20px);
+  color: rgba(255, 255, 255, .72);
+  font-weight: 600;
+}
+
+dialog {
+  width: min(28rem, calc(100% - 2rem));
+  border: 1px solid rgba(255, 255, 255, .1);
+  border-radius: 1.2rem;
+  padding: 1.5rem;
+  background: #15161e;
+  color: #fff;
+  box-shadow: 0 2rem 6rem rgba(0, 0, 0, .55);
+}
+
+dialog::backdrop { background: rgba(0, 0, 0, .68); backdrop-filter: blur(8px); }
+dialog h2 { margin: 0 0 .5rem; }
+dialog p { margin: 0 0 1.2rem; color: #9995a4; }
+dialog input {
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, .1);
+  border-radius: .7rem;
+  padding: .85rem 1rem;
+  background: #0e0f14;
+  color: #fff;
+  outline: none;
+}
+dialog menu { display: flex; justify-content: flex-end; gap: .5rem; margin: 1.2rem 0 0; padding: 0; }
+dialog menu button { border: 0; border-radius: .6rem; padding: .7rem .9rem; cursor: pointer; }
+dialog menu button:first-child { background: transparent; color: #aaa5b5; }
+dialog menu button:last-child { background: #eeeaf7; color: #111; }

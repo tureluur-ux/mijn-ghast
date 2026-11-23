@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#090a0f" />
+    <meta name="description" content="Mijn-Ghast: een persoonlijke, geheime PWA." />
+    <title>Mijn Ghast</title>
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main id="app" aria-live="polite">
+      <section id="screen" class="screen is-visible" aria-label="Persoonlijk scherm">
+        <div class="glow glow-a"></div>
+        <div class="glow glow-b"></div>
+        <button id="hideButton" class="hide-button" type="button" aria-label="Verberg dit scherm">X</button>
+
+        <div class="content">
+          <p class="eyebrow">PRIVATE SPACE</p>
+          <h1>Welkom terug,<br /><span>Ghast.</span></h1>
+          <p id="clock" class="clock"></p>
+          <div class="shortcut" title="Huidige geheime combinatie">
+            <span id="shortcutText">Ctrl + Shift + G</span>
+            <button id="editShortcut" type="button">Wijzig</button>
+          </div>
+        </div>
+
+        <button id="switchMode" class="mode-button" type="button" aria-label="Schakel weergave">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </section>
+
+      <section id="decoy" class="decoy" aria-label="Neutraal bureaubladscherm">
+        <div class="desktop-glass">
+          <p>Desktop</p>
+        </div>
+      </section>
+    </main>
+
+    <dialog id="shortcutDialog">
+      <form method="dialog" id="shortcutForm">
+        <h2>Geheime combinatie</h2>
+        <p>Druk tegelijkertijd op de gewenste toetsen.</p>
+        <input id="shortcutCapture" aria-label="Toetsencombinatie" autocomplete="off" placeholder="Bijv. Ctrl + Shift + G" />
+        <menu>
+          <button value="cancel" type="submit">Annuleren</button>
+          <button id="saveShortcut" value="default" type="submit">Opslaan</button>
+        </menu>
+      </form>
+    </dialog>
+
+    <script src="app.js"></script>
+  </body>
+</html>

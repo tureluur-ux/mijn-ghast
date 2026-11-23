@@ -1,0 +1,17 @@
+{
+  "name": "Mijn Ghast",
+  "short_name": "Ghast",
+  "description": "Een persoonlijke geheime PWA.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#090a0f",
+  "theme_color": "#090a0f",
+  "icons": [
+    {
+      "src": "icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
