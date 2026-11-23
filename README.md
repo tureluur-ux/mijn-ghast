@@ -73,7 +73,7 @@ npm install
 npm run dist
 ```
 
-De portable Windows-executable staat na een succesvolle build in `dist/`, bijvoorbeeld `Mijn-Ghast-1.0.0-Windows.exe`.
+De portable Windows-executable staat na een succesvolle build in `dist/`, bijvoorbeeld `Mijn-Ghast-1.1.0-Windows.exe`.
 
 ## GitHub Release
 

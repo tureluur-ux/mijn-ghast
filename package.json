@@ -1,6 +1,6 @@
 {
   "name": "mijn-ghast",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Een persoonlijke Windows-shortcut-app",
   "author": "tureluur-ux",
   "main": "main.js",
