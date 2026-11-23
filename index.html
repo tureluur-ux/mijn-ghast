@@ -4,53 +4,81 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#090a0f" />
-    <meta name="description" content="Mijn-Ghast: een persoonlijke, geheime PWA." />
+    <meta name="description" content="Mijn Ghast: een persoonlijke Windows-app met privé- en ghost-modus." />
     <title>Mijn Ghast</title>
     <link rel="manifest" href="manifest.webmanifest" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <main id="app" aria-live="polite">
-      <section id="screen" class="screen is-visible" aria-label="Persoonlijk scherm">
+      <section id="screen" class="screen is-visible" aria-label="Persoonlijk en normaal scherm">
         <div class="glow glow-a"></div>
         <div class="glow glow-b"></div>
-        <button id="hideButton" class="hide-button" type="button" aria-label="Verberg dit scherm">X</button>
+        <button id="hideButton" class="icon-button hide-button" type="button" aria-label="Verberg dit scherm">X</button>
 
         <div class="content">
-          <p class="eyebrow">PRIVATE SPACE</p>
-          <h1>Welkom terug,<br /><span>Ghast.</span></h1>
+          <p class="eyebrow" id="modeEyebrow">PRIVATE SPACE</p>
+          <h1 id="mainTitle">Welkom terug,<br /><span id="appNameTitle">Ghast.</span></h1>
           <p id="clock" class="clock"></p>
-          <div class="shortcut" title="Huidige geheime combinatie">
-            <span id="shortcutText">Ctrl + Shift + G</span>
-            <button id="editShortcut" type="button">Wijzig</button>
+          <div class="action-row">
+            <button id="ghostAction" class="primary-button" type="button">Ghost-modus</button>
+            <button id="settingsButton" class="secondary-button" type="button">Instellingen</button>
+            <button id="helpButton" class="secondary-button" type="button">Help</button>
           </div>
         </div>
-
-        <button id="switchMode" class="mode-button" type="button" aria-label="Schakel weergave">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
+        <div class="shortcut" title="Huidige activatiecombinatie"><span id="shortcutText">Ctrl + Shift + G</span></div>
       </section>
 
       <section id="decoy" class="decoy" aria-label="Neutraal bureaubladscherm">
         <div class="desktop-glass">
-          <p>Desktop</p>
+          <p>Normale modus</p>
         </div>
       </section>
-    </main>
 
-    <dialog id="shortcutDialog">
-      <form method="dialog" id="shortcutForm">
-        <h2>Geheime combinatie</h2>
-        <p>Druk tegelijkertijd op de gewenste toetsen.</p>
-        <input id="shortcutCapture" aria-label="Toetsencombinatie" autocomplete="off" placeholder="Bijv. Ctrl + Shift + G" />
-        <menu>
-          <button value="cancel" type="submit">Annuleren</button>
-          <button id="saveShortcut" value="default" type="submit">Opslaan</button>
-        </menu>
-      </form>
-    </dialog>
+      <dialog id="settingsDialog" class="panel-dialog">
+        <form id="settingsForm">
+          <header class="dialog-header">
+            <div><p class="eyebrow">LOKALE CONFIGURATIE</p><h2>Instellingen</h2></div>
+            <button class="icon-button" type="button" data-close-dialog="settingsDialog" aria-label="Sluiten">X</button>
+          </header>
+          <div class="form-grid">
+            <label>Appnaam <input id="appName" maxlength="40" autocomplete="off" /></label>
+            <label>Modus
+              <select id="modeSelect"><option value="ghost">Privé / ghost-modus</option><option value="normal">Normale modus</option></select>
+            </label>
+            <label class="full">Globale toetscombinatie
+              <input id="shortcutCapture" autocomplete="off" placeholder="Ctrl + Shift + G" />
+              <small>Electron-notatie, bijvoorbeeld <code>CommandOrControl+Shift+G</code>.</small>
+            </label>
+            <label class="check full"><input id="hideApps" type="checkbox" /> Geselecteerde desktop-appvensters minimaliseren</label>
+            <label class="check full"><input id="hideWindow" type="checkbox" /> Mijn Ghast in ghost-modus verbergen</label>
+            <label class="check full"><input id="lockDesktop" type="checkbox" /> Windows vergrendelen na ghost-activering</label>
+          </div>
+          <fieldset class="app-list">
+            <legend>Apps om te minimaliseren</legend>
+            <p>Gebruik de Windows-procesnaam, bijvoorbeeld <code>RobloxPlayerBeta</code> of <code>Bloxstrap</code>.</p>
+            <div id="appRows"></div>
+            <button id="addApp" class="secondary-button" type="button">+ App toevoegen</button>
+          </fieldset>
+          <div class="warning"><strong>Beperkte Windows-actie</strong><br />Alleen vensters van opgegeven procesnamen worden geminimaliseerd. Optioneel volgt de normale Windows-vergrendeling. Geen procesdoding, keylogging, escalatie of permanente blokkering.</div>
+          <footer class="dialog-footer">
+            <button id="resetConfig" class="danger-button" type="button">Alles resetten</button>
+            <div><button type="button" data-close-dialog="settingsDialog" class="secondary-button">Annuleren</button><button type="submit" class="primary-button">Opslaan</button></div>
+          </footer>
+        </form>
+      </dialog>
+
+      <dialog id="helpDialog" class="panel-dialog help-dialog">
+        <header class="dialog-header"><div><p class="eyebrow">HELP / INFORMATIE</p><h2>Mijn Ghast gebruiken</h2></div><button class="icon-button" type="button" data-close-dialog="helpDialog" aria-label="Sluiten">X</button></header>
+        <div class="help-content">
+          <section><h3>Normaal / privé</h3><p>Open het venster via het systeemvak of de knop Instellingen. Normaal toont een neutrale interface; privé toont het persoonlijke scherm.</p></section>
+          <section><h3>Ghost-modus</h3><p>Gebruik de knop of globale combinatie. Vensters van opgegeven apps worden geminimaliseerd. Optioneel kan Windows daarna worden vergrendeld.</p></section>
+          <section><h3>Privacy</h3><p>Windows-config staat onder <code>%APPDATA%/Mijn Ghast/config.json</code>. Er is geen analytics, account, cloud-opslag of externe configuratie.</p></section>
+          <section><h3>Beperking</h3><p>Er worden geen processen gedood, geen rootrechten aangevraagd, geen toetsen opgeslagen en geen Windows-functies permanent geblokkeerd.</p></section>
+        </div>
+        <footer class="dialog-footer"><span></span><button type="button" data-close-dialog="helpDialog" class="primary-button">Begrepen</button></footer>
+      </dialog>
+    </main>
 
     <script src="app.js"></script>
   </body>

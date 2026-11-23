@@ -1,36 +1,40 @@
 # Mijn Ghast
 
-Een persoonlijke PWA met een geheime activatiecombinatie en een neutrale bureaubladweergave.
+Een persoonlijke Windows-desktopapp met een normale, privé/ghost-modus, lokale instellingen, systeemvakmenu en een neutrale interface.
 
 ## Windows-app
 
-De Electron-versie kan:
+De Electron-versie biedt:
 
-- Roblox/Roblox Player en Bloxstrap vensters minimaliseren
-- Het eigen venster verbergen
-- Windows vergrendelen via `rundll32.exe`
-- Als systeemvakicoon blijven draaien
+- Een **instellingenvenster** voor appnaam, modus, globale combinatie, gedrag en appnamen.
+- Een **normaal venster** en apart **Help/informatie**-venster.
+- Een **privé/ghost-modus** zonder permanente blokkade.
+- Minimaliseren van vensters voor zelf ingestelde Windows-procesnamen.
+- Standaarddetectie voor Roblox en Bloxstrap, zonder Roblox- of Bloxstrap-bestanden te wijzigen.
+- Optionele Windowsvergrendeling via `rundll32.exe` en de normale Windows-lockactie.
+- Systeemvakbediening, reset en duidelijke waarschuwingsinformatie.
 
-Standaard is de Windowscombinatie **Ctrl + Shift + G**.
+De app doet geen procesdoding, keylogging, root/admin-eisen, permanente vergrendeling of Windows-blokkering.
+
+Standaard is de globale combinatie **Ctrl + Shift + G**. De Electron-combinatie wordt in Instellingen als `CommandOrControl+Shift+G` opgeslagen.
 
 ```powershell
 npm install
 npm start
-npm run build
+npm run dist
 ```
 
 ## Activatie
 
 - Standaard: **Ctrl + Shift + G**
-- Veeg op een touchapparaat of telefoon omhoog om het privé-scherm te openen
-- Tik **5 keer snel** op het neutrale bureaubladscherm
-- De combinatie kan in de app worden gewijzigd via **Wijzig**
+- Tik **5 keer snel** op het neutrale bureaubladscherm om privé te openen
+- Gebruik het systeemvak voor Instellingen, Ghost-modus en afsluiten
+- Wijzig de globale combinatie in Instellingen
 
 Verberg het privé-scherm met:
 
 - Het **X**-knopje
 - **Escape**
-- Een veeg naar rechts op het privé-scherm
 
 ## Starten
 
@@ -54,8 +58,23 @@ Voor offline gebruik moet de app via HTTPS worden geopend; GitHub Pages onderste
 
 Deze repository bevat een GitHub Actions workflow die bij elke push naar `main` automatisch publiceert.
 
-## Privacy
+## Configuratie en privacy
 
-- De app gebruikt geen analytics of externe diensten.
-- De gekozen combinatie wordt alleen lokaal in `localStorage` opgeslagen.
-- Het neutrale scherm is geen beveiliging. Gebruik geen privédata op gedeelde apparaten.
+- Windows-config wordt opgeslagen in `app.getPath('userData')\config.json`.
+- Instellingen blijven lokaal; er is geen cloud-, account- of analyticsfunctie.
+- Processnamen worden alleen lokaal gebruikt om zichtbare vensters te vinden en te minimaliseren.
+- De optie om te vergrendelen gebruikt uitsluitend de normale Windows-vergrendelfunctie en blijft optioneel.
+- Het neutrale scherm is geen beveiligingsgrens.
+
+## Portable build
+
+```powershell
+npm install
+npm run dist
+```
+
+De portable Windows-executable staat na een succesvolle build in `dist/`, bijvoorbeeld `Mijn-Ghast-1.1.0-Windows.exe`.
+
+## GitHub Release
+
+Een release kan automatisch worden gemaakt door een semantische versie-tag te pushen. Voeg vóór de eerste release een Windows-releaseworkflow toe die `npm ci`, `npm run dist` en `softprops/action-gh-release` uitvoert. Onder `dist/` wordt de portable executable als Release-artifact geüpload.
