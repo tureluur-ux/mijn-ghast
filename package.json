@@ -2,6 +2,7 @@
   "name": "mijn-ghast",
   "version": "1.0.0",
   "description": "Een persoonlijke Windows-shortcut-app",
+  "author": "tureluur-ux",
   "main": "main.js",
   "private": false,
   "license": "MIT",
@@ -13,9 +14,11 @@
   "build": {
     "appId": "nl.tureluur.mijnghast",
     "productName": "Mijn Ghast",
+    "icon": "icon.png",
     "win": {
       "target": "portable",
-      "artifactName": "Mijn-Ghast-${version}-Windows.exe"
+      "artifactName": "Mijn-Ghast-${version}-Windows.exe",
+      "signAndEditExecutable": false
     },
     "files": [
       "main.js",
@@ -23,11 +26,13 @@
       "index.html",
       "styles.css",
       "app.js",
-      "icon.svg"
+      "icon.svg",
+      "icon.png"
     ]
   },
   "devDependencies": {
     "electron": "33.4.11",
-    "electron-builder": "25.1.8"
+    "electron-builder": "25.1.8",
+    "sharp": "^0.35.5"
   }
 }
